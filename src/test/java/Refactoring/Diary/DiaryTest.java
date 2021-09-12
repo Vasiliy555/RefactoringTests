@@ -12,7 +12,6 @@ public class DiaryTest extends WebDriverSettings{
     @BeforeEach
     void setUpp() {
         DiaryTestPage diaryTestPage = PageFactory.initElements(driver, DiaryTestPage.class);
-
         diaryTestPage.openUrl();
         diaryTestPage.startRegistration();
     }
@@ -31,7 +30,6 @@ public class DiaryTest extends WebDriverSettings{
         diaryTestPage.confirmNewBlogTitle();
         diaryTestPage.selectDropRightMenu();
         diaryTestPage.clickLogout();
-
     }
 
     @Test
