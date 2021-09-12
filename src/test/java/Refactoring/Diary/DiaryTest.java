@@ -8,7 +8,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 
-import java.util.Random;
 
 public class DiaryTest extends WebDriverSettings{
     @BeforeEach
@@ -22,29 +21,26 @@ public class DiaryTest extends WebDriverSettings{
     @Test
     void diaryNewRegistrationTest() {
         DiaryTestPage diaryTestPage = PageFactory.initElements(driver, DiaryTestPage.class);
-        diaryTestPage.openUrl();
-        diaryTestPage.startRegistration();
+
         Assertions.assertTrue(driver.getCurrentUrl().contains("registration"));
 
-        Random random = new Random();
-        int n = random.nextInt(100) + 1;
-        diaryTestPage.startRegistration();
-        driver.findElement(By.id("signupform-username")).sendKeys("Qwelollipop" + n);
-        driver.findElement(By.id("signupform-email")).sendKeys("Qwelollipop" + n + "@mail.com");
-        driver.findElement(By.id("chk_box_user_confirm")).click();
+        diaryTestPage.fillUserName("Qwelollipop");
+        diaryTestPage.fillEmail("Qwelollipop","@mail.com");
+        diaryTestPage.clickCheckBox();
         Assertions.assertTrue(driver.findElement(By.id("signup_btn")).isDisplayed());
-        driver.findElement(By.id("signup_btn")).click();
-        driver.findElement(By.id("newblogform-title")).click();
-        driver.findElement(By.id("newblogform-title")).sendKeys("NewBlog");
-        driver.findElement(By.name("new-blogs-button")).click();
-        driver.findElement(By.id("drop_right_menu")).click();
-        driver.findElement(By.linkText("Выход")).click();
+        diaryTestPage.confirmRegistration();
+        diaryTestPage.addNewBlogTitle("MyNewBlog");
+        diaryTestPage.confirmNewBlogTitle();
+        diaryTestPage.selectDropRightMenu();
+        diaryTestPage.clickLogout();
     }
 
     @Test
     void diaryEmptyRegistration() {
+        DiaryTestPage diaryTestPage = PageFactory.initElements(driver, DiaryTestPage.class);
+        diaryTestPage.confirmRegistration();
+//        driver.findElement(By.id("signup_btn")).click();
 
-        driver.findElement(By.id("signup_btn")).click();
 
         WebElement userName = driver.findElement(By.id("signupform-username"));
         WebElement userNameParent = userName.findElement(By.xpath(".."));
