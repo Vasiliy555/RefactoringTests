@@ -23,7 +23,7 @@ public class DiaryTestPage {
     private WebElement registration;
 
     @FindBy(id = "signupform-username")
-    private WebElement username;
+    private WebElement userName;
 
     @FindBy(id = "signupform-email")
     private WebElement email;
@@ -56,11 +56,12 @@ public class DiaryTestPage {
     }
 
     public void fillUserName(String name) {
-        username.sendKeys(name + random());
+        userName.sendKeys(name + random());
     }
 
-    public void fillEmail(String mailName, String mailAddress) {
-        email.sendKeys(mailName + random() + mailAddress);
+    public void fillEmail(String mailAddress) {
+
+        email.sendKeys(random() + mailAddress);
     }
 
     public int random() {
@@ -85,6 +86,17 @@ public class DiaryTestPage {
     }
     public void clickLogout(){
         logout.click();
+    }
+//    Errors
+
+    public String getUserNameError(){
+        WebElement userNameParent = userName.findElement(By.xpath(".."));
+        return userNameParent.findElement(By.cssSelector("p")).getText();
+    }
+
+    public String getEmailNameError(){
+        WebElement emailNameParent = email.findElement(By.xpath(".."));
+        return emailNameParent.findElement(By.cssSelector("p")).getText();
     }
 
 }
