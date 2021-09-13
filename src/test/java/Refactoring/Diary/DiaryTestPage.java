@@ -1,21 +1,18 @@
 package Refactoring.Diary;
 
-
-import org.junit.jupiter.api.BeforeAll;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import java.net.PortUnreachableException;
 import java.util.Random;
 
 public class DiaryTestPage {
     private WebDriver driver;
 
     public DiaryTestPage(WebDriver driver) {
-//        PageFactory.initElements(driver, this);
+        PageFactory.initElements(driver, this);
         this.driver = driver;
     }
 
@@ -51,17 +48,20 @@ public class DiaryTestPage {
         driver.get("https://diary.ru/");
     }
 
-    public void startRegistration() {
+    public DiaryTestPage startRegistration() {
         registration.click();
+        return this;
     }
 
-    public void fillUserName(String name) {
+    public DiaryTestPage fillUserName(String name) {
         userName.sendKeys(name + random());
+        return this;
     }
 
-    public void fillEmail(String mailAddress) {
+    public DiaryTestPage fillEmail(String mailAddress) {
 
         email.sendKeys(random() + mailAddress);
+        return this;
     }
 
     public int random() {
@@ -69,24 +69,37 @@ public class DiaryTestPage {
         int n = random.nextInt(100) + 1;
         return n;
     }
-    public void clickCheckBox(){
+
+    public DiaryTestPage clickCheckBox() {
         checkBox.click();
+        return this;
     }
-    public void confirmRegistration(){
+
+    public DiaryTestPage confirmRegistration() {
         confirmRegistration.click();
+        return this;
     }
-    public void addNewBlogTitle(String blogTitle){
+
+    public DiaryTestPage addNewBlogTitle(String blogTitle) {
         newBlog.sendKeys(blogTitle);
+        return this;
     }
-    public void confirmNewBlogTitle(){
+
+    public DiaryTestPage confirmNewBlogTitle() {
         confirmBlog.click();
+        return this;
     }
-    public void selectDropRightMenu(){
+
+    public DiaryTestPage selectDropRightMenu() {
         dropRightMenu.click();
+        return this;
     }
-    public void clickLogout(){
+
+    public DiaryTestPage clickLogout() {
         logout.click();
+        return this;
     }
+
 //    Errors
 
     public String getUserNameError(){
