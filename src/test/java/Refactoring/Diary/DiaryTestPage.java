@@ -44,8 +44,9 @@ public class DiaryTestPage {
     private WebElement logout;
 
 
-    public void openUrl() {
+    public DiaryTestPage openUrl() {
         driver.get("https://diary.ru/");
+        return this;
     }
 
     public DiaryTestPage startRegistration() {
@@ -59,7 +60,6 @@ public class DiaryTestPage {
     }
 
     public DiaryTestPage fillEmail(String mailAddress) {
-
         email.sendKeys(random() + mailAddress);
         return this;
     }
@@ -98,6 +98,9 @@ public class DiaryTestPage {
     public DiaryTestPage clickLogout() {
         logout.click();
         return this;
+    }
+    public WebElement signUpBtn(){
+        return confirmRegistration;
     }
 
 //    Errors
