@@ -8,10 +8,10 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.util.Random;
 
-public class DiaryTestPage {
-    private WebDriver driver;
+    public class DiaryPage {
+        private WebDriver driver;
 
-    public DiaryTestPage(WebDriver driver) {
+    public DiaryPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
     }
@@ -44,22 +44,22 @@ public class DiaryTestPage {
     private WebElement logout;
 
 
-    public DiaryTestPage openUrl() {
+    public DiaryPage openUrl() {
         driver.get("https://diary.ru/");
         return this;
     }
 
-    public DiaryTestPage startRegistration() {
+    public DiaryPage startRegistration() {
         registration.click();
         return this;
     }
 
-    public DiaryTestPage fillUserName(String name) {
+    public DiaryPage fillUserName(String name) {
         userName.sendKeys(name + random());
         return this;
     }
 
-    public DiaryTestPage fillEmail(String mailAddress) {
+    public DiaryPage fillEmail(String mailAddress) {
         email.sendKeys(random() + mailAddress);
         return this;
     }
@@ -70,47 +70,48 @@ public class DiaryTestPage {
         return n;
     }
 
-    public DiaryTestPage clickCheckBox() {
+    public DiaryPage clickCheckBox() {
         checkBox.click();
         return this;
     }
 
-    public DiaryTestPage confirmRegistration() {
+    public DiaryPage confirmRegistration() {
         confirmRegistration.click();
         return this;
     }
 
-    public DiaryTestPage addNewBlogTitle(String blogTitle) {
+    public DiaryPage addNewBlogTitle(String blogTitle) {
         newBlog.sendKeys(blogTitle);
         return this;
     }
 
-    public DiaryTestPage confirmNewBlogTitle() {
+    public DiaryPage confirmNewBlogTitle() {
         confirmBlog.click();
         return this;
     }
 
-    public DiaryTestPage selectDropRightMenu() {
+    public DiaryPage selectDropRightMenu() {
         dropRightMenu.click();
         return this;
     }
 
-    public DiaryTestPage clickLogout() {
+    public DiaryPage clickLogout() {
         logout.click();
         return this;
     }
-    public WebElement signUpBtn(){
+
+    public WebElement signUpBtn() {
         return confirmRegistration;
     }
 
 //    Errors
 
-    public String getUserNameError(){
+    public String getUserNameError() {
         WebElement userNameParent = userName.findElement(By.xpath(".."));
         return userNameParent.findElement(By.cssSelector("p")).getText();
     }
 
-    public String getEmailNameError(){
+    public String getEmailNameError() {
         WebElement emailNameParent = email.findElement(By.xpath(".."));
         return emailNameParent.findElement(By.cssSelector("p")).getText();
     }

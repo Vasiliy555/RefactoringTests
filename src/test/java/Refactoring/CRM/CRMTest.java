@@ -7,24 +7,25 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.support.PageFactory;
 
 public class CRMTest extends WebDriverSettings {
-    public static CRMTestPage crmTestPage;
+    public static CRMPage crmPage;
+
 
     @BeforeEach
     void setUpp() {
-        crmTestPage = PageFactory.initElements(driver, CRMTestPage.class);
-        crmTestPage.openUrl()
+        crmPage = PageFactory.initElements(driver, CRMPage.class);
+        crmPage.openUrl()
                 .fillUserName()
                 .fillPassword();
     }
 
     @Test
     void testProject() {
-        Assertions.assertEquals(crmTestPage.getTitle(), ("Логин"));
-        Assertions.assertEquals(crmTestPage.getUserName(), "Applanatest1");
-        Assertions.assertEquals(crmTestPage.getPassword(), "Student2020!");
-        Assertions.assertTrue(crmTestPage.submit().isDisplayed());
+        Assertions.assertEquals(crmPage.getTitle(), ("Логин"));
+        Assertions.assertEquals(crmPage.getUserName(), "Applanatest1");
+        Assertions.assertEquals(crmPage.getPassword(), "Student2020!");
+        Assertions.assertTrue(crmPage.submit().isDisplayed());
 
-        crmTestPage.submitClick()
+        crmPage.submitClick()
                 .projectClick()
                 .myProjectClick()
                 .createProject()
@@ -41,7 +42,7 @@ public class CRMTest extends WebDriverSettings {
 
     @Test
     void testContact() {
-        crmTestPage.submitClick()
+        crmPage.submitClick()
                 .contactPersonClick()
                 .createPerson("Alexeev", "Alex", "Director")
                 .selectOrganization()

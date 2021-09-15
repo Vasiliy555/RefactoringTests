@@ -8,12 +8,12 @@ import org.openqa.selenium.support.PageFactory;
 
 
 public class DiaryTest extends WebDriverSettings {
-    public static DiaryTestPage diaryTestPage;
+    public static DiaryPage diaryPage;
 
     @BeforeEach
     void setUpp() {
-        diaryTestPage = PageFactory.initElements(driver, DiaryTestPage.class);
-        diaryTestPage.openUrl()
+        diaryPage = PageFactory.initElements(driver, DiaryPage.class);
+        diaryPage.openUrl()
         .startRegistration();
     }
 
@@ -21,12 +21,12 @@ public class DiaryTest extends WebDriverSettings {
     void diaryNewRegistrationTest() {
         Assertions.assertTrue(driver.getCurrentUrl().contains("registration"));
 
-        diaryTestPage.fillUserName("Qwelollipopiop")
+        diaryPage.fillUserName("Qwelollipopiop")
                 .fillEmail("Qwelollipopiop@mail.com")
                 .clickCheckBox();
 
-        Assertions.assertTrue(diaryTestPage.signUpBtn().isDisplayed());
-        diaryTestPage.confirmRegistration()
+        Assertions.assertTrue(diaryPage.signUpBtn().isDisplayed());
+        diaryPage.confirmRegistration()
                 .addNewBlogTitle("MyNewBlog")
                 .confirmNewBlogTitle()
                 .selectDropRightMenu()
@@ -35,31 +35,31 @@ public class DiaryTest extends WebDriverSettings {
 
     @Test
     void diaryEmptyRegistration() {
-        diaryTestPage.confirmRegistration();
+        diaryPage.confirmRegistration();
 
-        Assertions.assertEquals(diaryTestPage.getUserNameError(),
+        Assertions.assertEquals(diaryPage.getUserNameError(),
                 "Необходимо заполнить «Логин».");
-        Assertions.assertEquals(diaryTestPage.getEmailNameError(),
+        Assertions.assertEquals(diaryPage.getEmailNameError(),
                 "Необходимо заполнить «E-mail».");
     }
 
     @Test
     void incorrectUserName() {
-        diaryTestPage.fillUserName("QweЛОЛ")
+        diaryPage.fillUserName("QweЛОЛ")
                 .fillEmail("aszxcd@gmail.com")
                 .confirmRegistration();
 
-        Assertions.assertEquals(diaryTestPage.getUserNameError(),
+        Assertions.assertEquals(diaryPage.getUserNameError(),
                 "Использование одновременно русских и латинских символов недопустимо");
     }
 
     @Test
     void incorrectEmail() {
-        diaryTestPage.fillUserName("Qwepopkit")
+        diaryPage.fillUserName("Qwepopkit")
                 .fillEmail("asdxzc@mail")
                 .confirmRegistration();
 
-        Assertions.assertEquals(diaryTestPage.getEmailNameError(),
+        Assertions.assertEquals(diaryPage.getEmailNameError(),
                 "Значение «E-mail» не является правильным email адресом.");
     }
 
