@@ -4,6 +4,7 @@ import Refactoring.WebDriverSettings;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.support.PageFactory;
 
 public class CRMTest extends WebDriverSettings {
@@ -17,14 +18,15 @@ public class CRMTest extends WebDriverSettings {
                 .fillUserName()
                 .fillPassword();
     }
-
+@Test
+void positiveLoginTest(){
+    Assertions.assertEquals(crmPage.getTitle(), ("Логин"));
+    Assertions.assertEquals(crmPage.getUserName(), "Applanatest1");
+    Assertions.assertEquals(crmPage.getPassword(), "Student2020!");
+    Assertions.assertTrue(crmPage.submit().isDisplayed());
+}
     @Test
-    void testProject() {
-        Assertions.assertEquals(crmPage.getTitle(), ("Логин"));
-        Assertions.assertEquals(crmPage.getUserName(), "Applanatest1");
-        Assertions.assertEquals(crmPage.getPassword(), "Student2020!");
-        Assertions.assertTrue(crmPage.submit().isDisplayed());
-
+    void createProjectTest() {
         crmPage.submitClick()
                 .projectClick()
                 .myProjectClick()
@@ -38,15 +40,18 @@ public class CRMTest extends WebDriverSettings {
                 .selectManager()
                 .selectContactMain()
                 .saveCloseClick();
+        Assertions.assertTrue(driver.findElement(By.xpath("//*[text()='Проект сохранен']")).isDisplayed());
+
     }
 
     @Test
-    void testContact() {
+    void createContactTest() {
         crmPage.submitClick()
                 .contactPersonClick()
                 .createPerson("Alexeev", "Alex", "Director")
                 .selectOrganization()
                 .saveCloseClick();
-
+        Assertions.assertEquals(driver.findElement(By.className("message")).getText(),
+                "Контактное лицо сохранено");
     }
 }

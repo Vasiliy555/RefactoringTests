@@ -17,13 +17,13 @@ import java.util.Random;
     }
 
     @FindBy(linkText = "Регистрация")
-    private WebElement registration;
+    WebElement registration;
 
     @FindBy(id = "signupform-username")
-    private WebElement userName;
+    WebElement userName;
 
     @FindBy(id = "signupform-email")
-    private WebElement email;
+    WebElement email;
 
     @FindBy(id = "chk_box_user_confirm")
     private WebElement checkBox;
@@ -42,7 +42,6 @@ import java.util.Random;
 
     @FindBy(linkText = "Выход")
     private WebElement logout;
-
 
     public DiaryPage openUrl() {
         driver.get("https://diary.ru/");
@@ -98,6 +97,9 @@ import java.util.Random;
     public DiaryPage clickLogout() {
         logout.click();
         return this;
+    }
+    public WebElement logout(){
+        return logout;
     }
 
     public WebElement signUpBtn() {

@@ -5,16 +5,20 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.Random;
 
 public class CRMPage {
     private WebDriver driver;
+    private WebDriverWait wait;
 
     public CRMPage(WebDriver driver) {
         PageFactory.initElements(driver,this);
         this.driver = driver;
+        wait = new WebDriverWait(driver,10);
     }
 
     //Project Locators
@@ -113,7 +117,9 @@ public class CRMPage {
         return this;
     }
     public CRMPage createProject(){
+        wait.until((ExpectedConditions.visibilityOfElementLocated(By.linkText("Создать проект"))));
         createProject.click();
+
         return this;
     }
     public CRMPage projectName(String name){
