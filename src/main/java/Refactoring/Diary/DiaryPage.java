@@ -5,15 +5,19 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.Random;
 
-    public class DiaryPage {
-        private WebDriver driver;
+public class DiaryPage {
+    private WebDriver driver;
+    private WebDriverWait wait;
 
     public DiaryPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
+        wait = new WebDriverWait(driver, 10);
     }
 
     @FindBy(linkText = "Регистрация")
@@ -86,19 +90,23 @@ import java.util.Random;
 
     public DiaryPage confirmNewBlogTitle() {
         confirmBlog.click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("drop_right_menu")));
         return this;
     }
 
     public DiaryPage selectDropRightMenu() {
+
         dropRightMenu.click();
         return this;
     }
 
     public DiaryPage clickLogout() {
+//        wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText("Выход")));
         logout.click();
         return this;
     }
-    public WebElement logout(){
+
+    public WebElement logout() {
         return logout;
     }
 
@@ -106,8 +114,7 @@ import java.util.Random;
         return confirmRegistration;
     }
 
-//    Errors
-
+    //    Errors
     public String getUserNameError() {
         WebElement userNameParent = userName.findElement(By.xpath(".."));
         return userNameParent.findElement(By.cssSelector("p")).getText();

@@ -9,7 +9,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import java.util.concurrent.TimeUnit;
 
 public class WebDriverSettings {
-   public static WebDriver driver;
+    public static WebDriver driver;
 
     @BeforeAll
     static void setUp() {
@@ -19,6 +19,7 @@ public class WebDriverSettings {
         options.addArguments("--headless");
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
+        driver.manage().timeouts().pageLoadTimeout(10000, TimeUnit.MILLISECONDS);
         driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
     }
 

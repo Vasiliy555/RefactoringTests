@@ -1,5 +1,6 @@
 package Refactoring.CRM;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -16,9 +17,9 @@ public class CRMPage {
     private WebDriverWait wait;
 
     public CRMPage(WebDriver driver) {
-        PageFactory.initElements(driver,this);
+        PageFactory.initElements(driver, this);
+        wait = new WebDriverWait(driver, 10);
         this.driver = driver;
-        wait = new WebDriverWait(driver,10);
     }
 
     //Project Locators
@@ -28,7 +29,7 @@ public class CRMPage {
     @FindBy(name = "_password")
     private WebElement password;
 
-    @FindBy(css =".title" )
+    @FindBy(css = ".title")
     private WebElement title;
 
     @FindBy(id = "_submit")
@@ -74,7 +75,7 @@ public class CRMPage {
     private WebElement saveClose;
 
     //Contact Locators
-    @FindBy (linkText = "Контрагенты")
+    @FindBy(linkText = "Контрагенты")
     private WebElement contrAgent;
 
     @FindBy(linkText = "Контактные лица")
@@ -91,87 +92,119 @@ public class CRMPage {
     private WebElement setJobTitle;
 
     //Project
+    @Step("Open https://crm.geekbrains.space/user/login")
     public CRMPage openUrl() {
         driver.get("https://crm.geekbrains.space/user/login");
         return this;
     }
-    public CRMPage fillUserName(){
+
+    @Step("UserName = Applanatest1")
+    public CRMPage fillUserName() {
         userName.sendKeys("Applanatest1");
         return this;
     }
 
-    public CRMPage fillPassword(){
+    @Step("Password = Student2020!")
+    public CRMPage fillPassword() {
         password.sendKeys("Student2020!");
         return this;
     }
-    public CRMPage submitClick(){
+
+    @Step("click submit")
+    public CRMPage submitClick() {
         submit.click();
         return this;
     }
-    public CRMPage projectClick(){
+
+    @Step("click project")
+    public CRMPage projectClick() {
         project.click();
         return this;
     }
-    public CRMPage myProjectClick(){
+
+    @Step("click myProject")
+    public CRMPage myProjectClick() {
         myProject.click();
         return this;
     }
-    public CRMPage createProject(){
+
+    @Step("click create project")
+    public CRMPage createProject() {
         wait.until((ExpectedConditions.visibilityOfElementLocated(By.linkText("Создать проект"))));
         createProject.click();
 
         return this;
     }
-    public CRMPage projectName(String name){
+
+    @Step("set project name {0}")
+    public CRMPage projectName(String name) {
         Random random = new Random();
         int n = random.nextInt(100) + 1;
         projectName.sendKeys(name + n);
         return this;
     }
 
-    public CRMPage selectOrganization(){
+    @Step("select organization")
+    public CRMPage selectOrganization() {
         organization.click();
         selectOrganization.click();
         return this;
     }
-    public CRMPage selectBusinessUnit(){
+
+    @Step("select BusinessUnit")
+    public CRMPage selectBusinessUnit() {
         businessUnit.findElement(By.xpath("//option[. = 'Research & Development']")).click();
         return this;
     }
-    public CRMPage selectCurator(){
+
+    @Step("select curator")
+    public CRMPage selectCurator() {
         curator.findElement(By.xpath("//option[. = 'Юзеров Юзер']")).click();
         return this;
     }
-    public CRMPage selectRp(){
+
+    @Step("select rp")
+    public CRMPage selectRp() {
         rp.findElement(By.xpath("//option[. = 'Корыстин Василий']")).click();
         return this;
     }
-    public CRMPage selectAdministrator(){
+
+    @Step("select administrator")
+    public CRMPage selectAdministrator() {
         administrator.findElement(By.xpath("//option[. = 'Ямутина Вера']")).click();
         return this;
     }
-    public CRMPage selectManager(){
+
+    @Step("select manager")
+    public CRMPage selectManager() {
         Select selectObject = new Select(manager);
         selectObject.selectByVisibleText("Чернецкий Евгений");
         return this;
     }
-    public CRMPage selectContactMain(){
+
+    @Step("select contact main")
+    public CRMPage selectContactMain() {
         Select selectContact = new Select(contactMain);
         selectContact.selectByVisibleText("Иванов Петр");
         return this;
     }
-    public CRMPage saveCloseClick(){
+
+    @Step("click save and close")
+    public CRMPage saveCloseClick() {
         saveClose.click();
         return this;
     }
+
     //Contact
+    @Step("click contact")
     public CRMPage contactPersonClick() {
         contrAgent.click();
         contact.click();
         return this;
     }
 
-    public CRMPage createPerson(String lastName, String  firstName, String jobTitle){
+    @Step("create person {0} {1} {2}")
+    public CRMPage createPerson(String lastName, String firstName, String jobTitle) {
         createPerson.click();
         setLastName.sendKeys(lastName);
         setFirstName.sendKeys(firstName);
@@ -181,17 +214,21 @@ public class CRMPage {
 
 
     //getAssertions
-    public String  getTitle(){
+    public String getTitle() {
         return title.getText();
     }
-    public String getUserName(){
+
+    @Step("get user name")
+    public String getUserName() {
         return userName.getAttribute("value");
     }
-    public String getPassword(){
+
+    @Step("get password")
+    public String getPassword() {
         return password.getAttribute("value");
     }
 
-    public WebElement submit(){
+    public WebElement submit() {
         return submit;
 
     }

@@ -1,13 +1,14 @@
 package Refactoring.Diary;
 
 import Refactoring.WebDriverSettings;
+import io.qameta.allure.Epic;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.PageFactory;
 
-
+@Epic("TESTING FOR https://diary.ru/")
 public class DiaryTest extends WebDriverSettings {
     public static DiaryPage diaryPage;
 
@@ -15,31 +16,37 @@ public class DiaryTest extends WebDriverSettings {
     void setUpp() {
         diaryPage = PageFactory.initElements(driver, DiaryPage.class);
         diaryPage.openUrl()
-        .startRegistration();
+                .startRegistration();
     }
 
     @Test
     void newRegistrationTest() {
         Assertions.assertTrue(driver.getCurrentUrl().contains("registration"));
     }
+
     @Test
-    void positiveRegistrationTest(){
-        diaryPage.fillUserName("LollipopS")
+    void positiveRegistrationTest() {
+        diaryPage.fillUserName("LollipopSet")
                 .fillEmail("Qwelollipopiop@mail.com")
                 .clickCheckBox();
 
         Assertions.assertTrue(diaryPage.signUpBtn().isDisplayed());
-        diaryPage.confirmRegistration();
+        diaryPage.confirmRegistration()
+                .selectDropRightMenu()
+                .clickLogout();
     }
 
     @Test
-    void addNewBlogTest(){
-        positiveRegistrationTest();
-         diaryPage.addNewBlogTitle("MyNewBlog")
-                .confirmNewBlogTitle()
-                .selectDropRightMenu();
+    void addNewBlogTest() {
+        diaryPage.fillUserName("LollipopSet")
+                .fillEmail("Qwelollipopiop@mail.com")
+                .clickCheckBox()
+                .confirmRegistration()
+                .addNewBlogTitle("MyNewBlog")
+                .confirmNewBlogTitle();
         Assertions.assertTrue(driver.findElement(By.linkText("MyNewBlog")).isDisplayed());
-                diaryPage.clickLogout();
+        diaryPage.selectDropRightMenu()
+                .clickLogout();
     }
 
     @Test
@@ -50,6 +57,7 @@ public class DiaryTest extends WebDriverSettings {
         Assertions.assertEquals(diaryPage.getUserNameError(),
                 "Необходимо заполнить «Логин».");
     }
+
     @Test
     void emptyEmailTest() {
         diaryPage.fillUserName("JIkinio")
