@@ -91,11 +91,11 @@ public class DiaryPage {
     @Step("click confirm create new blog")
     public DiaryPage confirmNewBlogTitle() {
         confirmBlog.click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("drop_right_menu")));
         return this;
     }
     @Step("click drop right menu")
     public DiaryPage selectDropRightMenu() {
+        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("drop_right_menu")));
         dropRightMenu.click();
         return this;
     }
@@ -117,13 +117,13 @@ public class DiaryPage {
     //    Errors
     public String getUserNameError() {
         WebElement userNameParent = userName.findElement(By.xpath(".."));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("registration_form")));
+        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("registration_form")));
         return userNameParent.findElement(By.cssSelector("p")).getText();
     }
 
     public String getEmailNameError() {
         WebElement emailNameParent = email.findElement(By.xpath(".."));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("registration_form")));
+        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("registration_form")));
         return emailNameParent.findElement(By.cssSelector("p")).getText();
     }
 
