@@ -4,6 +4,7 @@ import Refactoring.WebDriverSettings;
 import io.qameta.allure.Epic;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.PageFactory;
@@ -18,16 +19,16 @@ public class DiaryTest extends WebDriverSettings {
         diaryPage.openUrl()
                 .startRegistration();
     }
-
+    @DisplayName("Переход на страницу регистрации")
     @Test
     void newRegistrationTest() {
         Assertions.assertTrue(driver.getCurrentUrl().contains("registration"));
     }
-
+    @DisplayName("Успешная регистрация нового пользователя")
     @Test
     void positiveRegistrationTest() {
-        diaryPage.fillUserName("LollipopSet")
-                .fillEmail("Qwelollipopiop@mail.com")
+        diaryPage.fillUserName("LollipopSetStitch")
+                .fillEmail("QwelollipopiopStitch@mail.com")
                 .clickCheckBox();
 
         Assertions.assertTrue(diaryPage.signUpBtn().isDisplayed());
@@ -35,7 +36,7 @@ public class DiaryTest extends WebDriverSettings {
                 .selectDropRightMenu()
                 .clickLogout();
     }
-
+    @DisplayName("Регистрация и создания дневника")
     @Test
     void addNewBlogTest() {
         diaryPage.fillUserName("LollipopSet")
@@ -48,7 +49,7 @@ public class DiaryTest extends WebDriverSettings {
         diaryPage.selectDropRightMenu()
                 .clickLogout();
     }
-
+    @DisplayName("Регистрация с пустым полем логина")
     @Test
     void emptyLoginTest() {
         diaryPage.fillEmail("Qwelollipopiop@mail.com")
@@ -57,7 +58,7 @@ public class DiaryTest extends WebDriverSettings {
         Assertions.assertEquals(diaryPage.getUserNameError(),
                 "Необходимо заполнить «Логин».");
     }
-
+    @DisplayName("Регистрация с пустым полем email")
     @Test
     void emptyEmailTest() {
         diaryPage.fillUserName("JIkinio")
@@ -66,7 +67,7 @@ public class DiaryTest extends WebDriverSettings {
         Assertions.assertEquals(diaryPage.getEmailNameError(),
                 "Необходимо заполнить «E-mail».");
     }
-
+    @DisplayName("Регистрация с некорректным полем логина")
     @Test
     void incorrectUserNameTest() {
         diaryPage.fillUserName("QweЛОЛ")
@@ -76,11 +77,11 @@ public class DiaryTest extends WebDriverSettings {
         Assertions.assertEquals(diaryPage.getUserNameError(),
                 "Использование одновременно русских и латинских символов недопустимо");
     }
-
+    @DisplayName("Регистрация с некорректным полем email")
     @Test
     void incorrectEmailTest() {
         diaryPage.fillUserName("SimpleKit")
-                .fillEmail("asdxzc@mail")
+                .fillEmail("asdxzc")
                 .confirmRegistration();
 
         Assertions.assertEquals(diaryPage.getEmailNameError(),
